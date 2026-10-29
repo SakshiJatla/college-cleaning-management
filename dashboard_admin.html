@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard | SIES College</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="dashboard">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="profile-card">
+            <h2>{{ user.name }}</h2>
+            <p>📧 {{ user.email }}</p>
+            <p>📞 {{ user.mobile }}</p>
+            <p>🛠️ {{ user.role }}</p>
+        </div>
+        <a href="#tasks">📋 Tasks</a>
+        <a href="#attendance">🕒 Attendance</a>
+        <a href="{{ url_for('profile') }}">👤 Profile</a>
+        <a href="{{ url_for('logout') }}">🚪 Logout</a>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <h1>Admin Panel</h1>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <p style="color:{% if category=='error' %}red{% else %}green{% endif %}; font-weight:bold;">
+                {{ message }}
+              </p>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <!-- Tasks Section -->
+        <section id="tasks">
+            <h2>Assign New Task</h2>
+            <form method="POST">
+                <input type="text" name="task_title" placeholder="Task Title" required>
+                <input type="text" name="task_description" placeholder="Task Description" required>
+                <select name="assigned_to" required>
+                    {% for staff_member in staff %}
+                        <option value="{{ staff_member.email }}">{{ staff_member.name }} ({{ staff_member.email }})</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Assign Task</button>
+            </form>
+
+            <h2>Task History</h2>
+            <ul>
+                {% for t in tasks %}
+                    {% set staff_member = staff | selectattr("email","equalto",t.assigned_to) | first %}
+                    <li>
+                        <b>{{ t.title }}</b> → {{ staff_member.name if staff_member else t.assigned_to }} :
+                        <span style="color: {% if t.status=='Completed' %}green{% else %}red{% endif %}; font-weight:bold;">
+                            {{ t.status }}
+                        </span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <!-- Attendance Section -->
+        <section id="attendance">
+            <h2>Mark Staff Attendance</h2>
+            <form method="POST">
+                <select name="attendance_staff" required>
+                    {% for staff_member in staff %}
+                        <option value="{{ staff_member.email }}">{{ staff_member.name }}</option>
+                    {% endfor %}
+                </select>
+                <select name="attendance_status" required>
+                    <option value="Present">Present</option>
+                    <option value="Absent">Absent</option>
+                </select>
+                <button type="submit">Submit Attendance</button>
+            </form>
+
+            <h3>Attendance Records</h3>
+            <ul>
+                {% for a in attendance %}
+                    {% set staff_member = staff | selectattr("email","equalto",a.staff_email) | first %}
+                    <li>{{ staff_member.name if staff_member else a.staff_email }} → {{ a.status }} ({{ a.date }})</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+    </div>
+</body>
+</html>
+

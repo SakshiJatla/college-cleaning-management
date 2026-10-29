@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile | SIES College</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="dashboard">
+
+<div class="sidebar">
+    <div class="profile-card">
+        <h2>{{ user.name }}</h2>
+        <p>📧 {{ user.email }}</p>
+        <p>📞 {{ user.mobile }}</p>
+        <p>👤 {{ user.role }}</p>
+    </div>
+    <a href="{{ url_for('admin_dashboard') if user.role=='admin' else url_for('staff_dashboard') }}">🏠 Dashboard</a>
+    <a href="{{ url_for('logout') }}">🚪 Logout</a>
+</div>
+
+<div class="content">
+    <h1>Update Profile</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <p style="color:{% if category=='error' %}red{% else %}green{% endif %}; font-weight:bold;">
+            {{ message }}
+          </p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        <input type="text" name="name" placeholder="Full Name" value="{{ user.name }}" required><br>
+        <input type="text" name="mobile" placeholder="Mobile Number" value="{{ user.mobile }}" required><br>
+        <input type="password" name="password" placeholder="New Password (leave blank to keep current)"><br>
+        <button type="submit">Update Profile</button>
+    </form>
+</div>
+
+</body>
+</html>
+

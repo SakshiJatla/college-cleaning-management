@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | SIES College</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg">
+<div class="login-container">
+    <h1>Login</h1>
+    <form method="POST">
+        <input type="email" name="email" placeholder="Enter Email" required>
+        <input type="password" name="password" placeholder="Enter Password" required>
+        <button type="submit">Login</button>
+    </form>
+    <p><a href="{{ url_for('forgot_password') }}">Forgot Password?</a></p>
+    <p>New here? <a href="{{ url_for('register') }}">Register</a></p>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <p style="color:{% if category=='error' %}red{% else %}green{% endif %}; font-weight:bold;">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+</div>
+</body>
+</html>

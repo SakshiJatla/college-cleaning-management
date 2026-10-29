@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Staff Dashboard | SIES College</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="dashboard">
+    <div class="sidebar">
+        <div class="profile-card" style="padding-top:30px;">
+            <h2>{{ user.name }}</h2>
+            <p>📧 {{ user.email }}</p>
+            <p>📞 {{ user.mobile }}</p>
+            <p>👤 {{ user.role }}</p>
+            <hr style="margin:10px 0; border-color:#00c9a7;">
+            {% set staff_attendance = attendance | selectattr("staff_email","equalto",user.email) | list %}
+            {% if staff_attendance %}
+                <p style="color:green; font-weight:bold;">Attendance: {{ staff_attendance[0].status }}</p>
+            {% else %}
+                <p style="color:red;">Attendance not marked yet</p>
+            {% endif %}
+        </div>
+        <a href="#tasks">📋 My Tasks</a>
+        <a href="{{ url_for('logout') }}">🚪 Logout</a>
+    </div>
+
+    <div class="content">
+        <h1>Welcome {{ user.name }}</h1>
+
+        <!-- ===== Tasks Section ===== -->
+        <section id="tasks">
+            <h2>My Tasks</h2>
+            {% if tasks %}
+                <ul>
+                    {% for t in tasks %}
+                        <li>
+                            <b>{{ t.title }}</b>: {{ t.description }} - 
+                            <span style="color: {% if t.status=='Completed' %}green{% else %}red{% endif %}; font-weight:bold;">
+                                {{ t.status }}
+                            </span>
+                            {% if t.status != 'Completed' %}
+                                <form method="POST" style="display:inline;">
+                                    <input type="hidden" name="task_id" value="{{ t.id }}">
+                                    <button type="submit">Mark Completed ✅</button>
+                                </form>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No tasks assigned yet ✅</p>
+            {% endif %}
+        </section>
+    </div>
+</body>
+</html>
+

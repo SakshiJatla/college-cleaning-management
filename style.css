@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Cleaning Staff Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ===== General Body & Background ===== */
+        body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    background: url('images/college cleaning staff.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+        /* Optional dark overlay for readability */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: -1;
+        }
+
+        /* ===== Login/Register Page ===== */
+        .login-container {
+            width: 450px;
+            margin: 80px auto;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .login-container h1 {
+            color: #00c9a7;
+            font-size: 26px;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .login-container input {
+            width: 90%;
+            padding: 14px;
+            margin: 12px 0;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+        }
+
+        .login-container button {
+            width: 95%;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 18px;
+            background: #00c9a7;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .login-container button:hover {
+            background: #008f7a;
+        }
+
+        .quote {
+            font-size: 16px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .login-container p a {
+            color: #00c9a7;
+            text-decoration: none;
+        }
+
+        .login-container p a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== Dashboard Layout ===== */
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background: #111;
+            padding: 20px;
+            width: 250px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #00c9a7;
+            padding: 10px 0;
+            text-decoration: none;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        .sidebar a:hover {
+            background: #00c9a7;
+            color: #111;
+        }
+
+        /* ===== Profile Card ===== */
+        .profile-card {
+            background: #222;
+            padding: 30px 15px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            text-align: center;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .profile-card h2 {
+            margin: 10px 0;
+            color: #00c9a7;
+        }
+
+        .profile-card p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        /* ===== Content Area ===== */
+        .content {
+            flex: 1;
+            padding: 40px;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .content h1 {
+            margin-top: 0;
+            color: #111;
+        }
+
+        .content section {
+            margin-top: 30px;
+        }
+
+        .content ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .content ul li {
+            background: #e0e0e0;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 8px;
+        }
+
+        /* ===== Forms in Dashboard ===== */
+        .content form input,
+        .content form select {
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            width: 60%;
+        }
+
+        .content form button {
+            background: #00c9a7;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .content form button:hover {
+            background: #008f7a;
+        }
+
+        /* ===== Attendance Section ===== */
+        #attendance h2,
+        #tasks h2 {
+            color: #111;
+        }
+
+        #attendance ul li {
+            background: #d1f0e0;
+        }
+
+        /* ===== Task Section ===== */
+        #tasks ul li {
+            background: #f0f0f0;
+        }
+
+        /* ===== Responsive ===== */
+        @media screen and (max-width: 768px) {
+            .dashboard {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                flex-direction: row;
+                justify-content: space-around;
+            }
+            .content {
+                padding: 20px;
+            }
+            .login-container {
+                width: 90%;
+                margin: 50px auto;
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== Login Page ===== -->
+    <div class="login-container">
+        <h1>Staff Login</h1>
+        <p class="quote">"Keeping our campus clean, one step at a time."</p>
+        <form>
+            <input type="text" placeholder="Username" required><br>
+            <input type="password" placeholder="Password" required><br>
+            <button type="submit">Login</button>
+        </form>
+        <p>Forgot password? <a href="#">Click here</a></p>
+    </div>
+
+    <!-- ===== Dashboard Example ===== -->
+    <!--
+    <div class="dashboard">
+        <div class="sidebar">
+            <h2>Menu</h2>
+            <a href="#">Home</a>
+            <a href="#">Attendance</a>
+            <a href="#">Tasks</a>
+            <a href="#">Profile</a>
+        </div>
+        <div class="content">
+            <h1>Welcome, Staff</h1>
+            <section id="attendance">
+                <h2>Attendance</h2>
+                <ul>
+                    <li>John Doe - Present</li>
+                    <li>Jane Smith - Absent</li>
+                </ul>
+            </section>
+            <section id="tasks">
+                <h2>Tasks</h2>
+                <ul>
+                    <li>Clean Library</li>
+                    <li>Sanitize Classrooms</li>
+                </ul>
+            </section>
+        </div>
+    </div>
+    -->
+</body>
+</html>
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("College Cleaning Staff System Loaded ✅");
+});
+
